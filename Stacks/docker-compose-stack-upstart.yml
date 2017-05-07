@@ -1,0 +1,33 @@
+Version: '3'
+
+services:
+  portainer:
+    image: portainer/portainer
+    ports:
+      - 9000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /mnt/DockerData/portainer:/data
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    user: 1000:1000
+
+  visual:
+    image: manomarks/visualizer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 9090:8080
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+
+  registry:
+    image: registry:2
+    ports:
+      -5000:5000
+    volumes:
+      - /mnt/DockerData/registry:/var/lib/registry
+    restart: always
+    user: 1000:1000
