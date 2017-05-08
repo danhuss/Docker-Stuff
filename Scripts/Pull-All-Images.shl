@@ -1,5 +1,5 @@
 #!/bin/bash
-for i in $(docker images --format "{{.Repository}}:{{.Tag}}") 
+for i in $(docker images --filter "dangling=false" --format "{{.Repository}}:{{.Tag}}") 
 do 
   docker pull $i 
 done
