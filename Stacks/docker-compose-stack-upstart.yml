@@ -12,7 +12,6 @@ services:
     deploy:
       placement:
         constraints: [node.role == manager]
-    user: 1000:1000
 
   visual:
     image: manomarks/visualizer
